@@ -14,4 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [DashboardController::class, 'index']);
+Route::get('/', [DashboardController::class, 'index'])->middleware(['verified']);
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
