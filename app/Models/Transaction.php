@@ -12,6 +12,9 @@ class Transaction extends Model
     use HasFactory;
     use SoftDeletes;
 
+    //nama tabel transaction jika tidak dibuat maka dia membaca default jamak menjadi transactions
+    protected $table = 'transaction';
+
     protected $fillable = [
         'uuid', 'name', 'email', 'number', 'address',
         'transaction_total', 'transaction_status'
