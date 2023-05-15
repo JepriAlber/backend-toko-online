@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
+use App\Models\ProductGallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -16,7 +17,7 @@ class ProductController extends Controller
     {
         $items = Product::all();
 
-        return view('pages.product.index')->with([
+        return view('pages.products.index')->with([
             'items' => $items
         ]);
     }
@@ -26,7 +27,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('pages.product.create');
+        return view('pages.products.create');
     }
 
     /**
@@ -55,7 +56,7 @@ class ProductController extends Controller
     public function edit(string $id)
     {
         $item = Product::findOrFail($id);
-        return view('pages.product.edit')->with([
+        return view('pages.products.edit')->with([
             'item' => $item
         ]);
     }
@@ -82,6 +83,23 @@ class ProductController extends Controller
         $item   = Product::findOrFail($id);
         $item->delete();
 
+        //menghapus semua galery (poto) pada tabel galery yang dimiliki product jika product dihapus
+        ProductGallery::where('products_id', $id)->delete();
+
         return redirect()->route('products.index');
+    }
+
+    /**
+     * function for display list photo product by product
+     */
+    public function gallery(Request $request, $id)
+    {
+        $product = Product::findOrFail($id);
+        $items = ProductGallery::with('product')->where('products_id', $id)->get();
+
+        return view('pages.products.gallery')->with([
+            'product' => $product,
+            'items'   => $items
+        ]);
     }
 }

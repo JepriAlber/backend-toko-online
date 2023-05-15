@@ -25,7 +25,7 @@ class ProductGallery extends Model
     }
 
     /**
-     * Get the user's first name.
+     * menggunakan Accessors untuk menyimpan link gambar(photo) product
      */
     protected function Photo(): Attribute
     {
