@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TransactionRequest;
 use App\Models\Transaction;
 use App\Models\Product;
 use App\Models\TransactionDetail;
@@ -55,15 +56,24 @@ class TransactionController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $item = Transaction::findOrFail($id);
+
+        return view('pages.transactions.edit')->with([
+            'item' => $item
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(TransactionRequest $request, string $id)
     {
-        //
+        $data = $request->all();
+
+        $item = Transaction::findOrFail($id);
+        $item->update($data);
+
+        return redirect()->route('transactions.index');
     }
 
     /**
