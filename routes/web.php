@@ -21,5 +21,8 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard')->middl
 
 Route::get('/product/{id}/gallery', [ProductController::class, 'gallery'])->name('products.gallery')->middleware(['auth', 'verified']); //jika metode tidak ada di resouce maka posisikan lebih awal
 Route::resource('products', ProductController::class)->middleware(['auth', 'verified']);
+
 Route::resource('product-galleries', ProductGalleryController::class)->middleware(['auth', 'verified']);
+
+Route::get('transactions/{id}/set-status', [TransactionController::class, 'setStatus'])->name('transactions.status')->middleware(['auth', 'verified']);
 Route::resource('transactions', TransactionController::class)->middleware(['auth', 'verified']);
