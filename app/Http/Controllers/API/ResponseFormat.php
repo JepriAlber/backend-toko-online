@@ -1,8 +1,8 @@
 <?php
 
-namespace APP\Http\Controllers\API;
+namespace App\Http\Controllers\API;
 
-class ResponseFormatter
+class ResponseFormat
 {
     protected static $response = [
         'meta'      => [
@@ -26,7 +26,7 @@ class ResponseFormatter
         self::$response['meta']['status'] = 'error';
         self::$response['meta']['code'] = $code;
         self::$response['meta']['message'] = $message;
-        self::$response['data'] = $code;
+        self::$response['data'] = $data;
 
         return response()->json(self::$response, self::$response['meta']['code']);
     }
