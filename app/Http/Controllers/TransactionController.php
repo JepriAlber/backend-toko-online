@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaction;
+use App\Models\Product;
+use App\Models\TransactionDetail;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -40,7 +42,12 @@ class TransactionController extends Controller
      */
     public function show(string $id)
     {
-        //
+        //ambil data yang berelasi yang dimana detail terhubung dengan product
+        $item = Transaction::with('details.product')->findOrFail($id);
+
+        return view('pages.transactions.show')->with([
+            'item' => $item
+        ]);
     }
 
     /**
