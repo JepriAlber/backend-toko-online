@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\CheckouteController;
 use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\TransactionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,3 +23,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('products', [ProductController::class, 'all']);
 Route::post('checkout', [CheckouteController::class, 'checkout']);
+Route::get('transaction/{id}', [TransactionController::class, 'getTransaction']);
